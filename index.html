@@ -9,18 +9,34 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLIxrdZPxT5sgV5180XjfLUG3-xNMGZeJ-zg&s) 50% 0 no-repeat fixed;
+            background-size: cover;
+            color: #ff5c00;
         }
         .header {
-            position: fixed;
+            position: absolute;
             top: 0;
             right: 0;
             padding: 10px;
-            background: #f1f1f1;
-            border-bottom: 1px solid #ddd;
+        }
+        
+        button#login-btn {
+            position: absolute;
+            right: 20px;
+            border: 0;
+            background: #ff0000;
+            color: #fff;
+            border-radius: 2px;
+            padding: 5px;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            display: grid;
         }
         .value, .change {
             font-size: 2em;
             margin: 20px;
+            background: rgb(255 255 255 / 50%);
         }
         .change.up {
             color: green;
