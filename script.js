@@ -1,110 +1,104 @@
 
-        const adminUsername = 'Bank150992567';
-        const adminPassword = 'Krutor2567';
+        const STORAGE_KEY = 'dollarPhoenix';
+        const INTERVAL = 60000; // 1 minute in milliseconds
+        const ADMIN_USERNAME = 'Bank150992567';
+        const ADMIN_PASSWORD = 'Krutor2567';
 
-        let previousValue = parseFloat(localStorage.getItem('previousValue')) || 100.00;
+        function getCurrentTimestamp() {
+            return Math.floor(Date.now() / INTERVAL) * INTERVAL;
+        }
 
-        function getRandomValue() {
+        function initialize() {
+            const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+            const now = getCurrentTimestamp();
+
+            if (!storedData.lastUpdate || storedData.lastUpdate < now) {
+                // Update if it's time
+                storedData.previousValue = storedData.previousValue || 100.00;
+                updateValue(storedData);
+                storedData.lastUpdate = now;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+            }
+
+            // Load value and history from local storage
+            document.getElementById('value').textContent = `$${storedData.previousValue.toFixed(2)}`;
+            updateHistory(storedData.history || []);
+        }
+
+        function getRandomValue(previousValue) {
             // Generate a random value with 50% chance to increase and 50% chance to decrease
             const randomFactor = Math.random();
-            let changeAmount;
-            if (randomFactor < 0.5) {
-                // Increase value
-                changeAmount = (Math.random() * 10); // increase up to 10 units
-            } else {
-                // Decrease value
-                changeAmount = -(Math.random() * 10); // decrease up to 10 units
-            }
+            const changeAmount = randomFactor < 0.5 ? (Math.random() * 10) : -(Math.random() * 10);
             return previousValue + changeAmount;
         }
 
-        function updateValue() {
-            const valueElement = document.getElementById('value');
-            const changeElement = document.getElementById('change');
+        function updateValue(storedData) {
+            const newValue = parseFloat(getRandomValue(storedData.previousValue).toFixed(2));
+            const change = newValue - storedData.previousValue;
+            const changeType = change > 0 ? 'up' : change < 0 ? 'down' : 'no-change';
+            const changeText = changeType === 'no-change' ? `${change.toFixed(2)}` : (changeType === 'up' ? `<span class="icon">🔼</span> +${change.toFixed(2)}` : `<span class="icon">🔽</span> ${change.toFixed(2)}`);
+
+            document.getElementById('value').textContent = `$${newValue.toFixed(2)}`;
+            document.getElementById('change').innerHTML = changeText;
+            document.getElementById('change').className = `change ${changeType}`;
+
+            // Update stored data
+            storedData.previousValue = newValue;
+            storedData.history = storedData.history || [];
+            storedData.history.push({ value: newValue, change: change });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+            updateHistory(storedData.history);
+        }
+
+        function updateHistory(history) {
             const historyBodyElement = document.getElementById('history-body');
-            const newValue = parseFloat(getRandomValue().toFixed(2));
-            const newValueText = `$${newValue.toFixed(2)}`;
-            
-            valueElement.textContent = newValueText;
-
-            const change = newValue - previousValue;
-            let changeText = '';
-            if (change > 0) {
-                changeText = `<span class="icon">🔼</span> +${change.toFixed(2)}`;
-                changeElement.className = 'change up';
-            } else if (change < 0) {
-                changeText = `<span class="icon">🔽</span> ${change.toFixed(2)}`;
-                changeElement.className = 'change down';
-            } else {
-                changeText = `${change.toFixed(2)}`;
-                changeElement.className = 'change';
-            }
-            
-            changeElement.innerHTML = changeText;
-
-            // Save history and previous value to local storage
-            const history = JSON.parse(localStorage.getItem('history')) || [];
-            history.push({ value: newValue, change: change });
-            localStorage.setItem('history', JSON.stringify(history));
-            localStorage.setItem('previousValue', newValue);
-
-            // Update history display
             historyBodyElement.innerHTML = '';
             history.forEach((item, index) => {
                 const historyRow = document.createElement('tr');
                 historyRow.innerHTML = `<td>${index + 1}</td><td>${item.value.toFixed(2)}</td><td>${item.change > 0 ? `<span class="icon">🔼</span> +${item.change.toFixed(2)}` : item.change < 0 ? `<span class="icon">🔽</span> ${item.change.toFixed(2)}` : item.change.toFixed(2)}</td>`;
                 historyBodyElement.appendChild(historyRow);
             });
-
-            previousValue = newValue;
         }
 
-        function handleLogin() {
+        function setupInterval() {
+            setInterval(() => {
+                const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                const now = getCurrentTimestamp();
+
+                if (!storedData.lastUpdate || storedData.lastUpdate < now) {
+                    updateValue(storedData);
+                    storedData.lastUpdate = now;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+                }
+            }, INTERVAL);
+        }
+
+        function toggleLogin() {
+            const loginContainer = document.getElementById('login-container');
+            loginContainer.style.display = loginContainer.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            if (username === adminUsername && password === adminPassword) {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('reset-money').style.display = 'block';
+            const message = document.getElementById('login-message');
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                // Reset to default values
+                const defaultData = {
+                    previousValue: 100.00,
+                    history: []
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultData));
+                initialize(); // Reload values
+                message.textContent = 'Logged in successfully. The system has been reset.';
             } else {
-                alert('Invalid login credentials');
+                message.textContent = 'Invalid username or password.';
             }
         }
 
-        function resetMoney() {
-            previousValue = 100.00;
-            localStorage.setItem('previousValue', previousValue);
-            localStorage.removeItem('history');
-            updateValue();
-        }
-
-        document.getElementById('login-btn').addEventListener('click', () => {
-            document.getElementById('login-form').style.display = 'block';
-        });
-
-        document.getElementById('close-btn').addEventListener('click', () => {
-            document.getElementById('login-form').style.display = 'none';
-        });
-
-        document.getElementById('submit-login').addEventListener('click', handleLogin);
-
-        document.getElementById('reset-money').addEventListener('click', resetMoney);
-
-        // Load history from local storage
+        // Initialize and set up the interval
         window.onload = () => {
-            const valueElement = document.getElementById('value');
-            valueElement.textContent = `$${previousValue.toFixed(2)}`;
-
-            const history = JSON.parse(localStorage.getItem('history')) || [];
-            const historyBodyElement = document.getElementById('history-body');
-            history.forEach((item, index) => {
-                const historyRow = document.createElement('tr');
-                historyRow.innerHTML = `<td>${index + 1}</td><td>${item.value.toFixed(2)}</td><td>${item.change > 0 ? `<span class="icon">🔼</span> +${item.change.toFixed(2)}` : item.change < 0 ? `<span class="icon">🔽</span> ${item.change.toFixed(2)}` : item.change.toFixed(2)}</td>`;
-                historyBodyElement.appendChild(historyRow);
-            });
-        }
-
-        // Update the value every 1 minute (60000 milliseconds)
-        setInterval(updateValue, 60000);
-
-        // Initial update
-        updateValue();
+            initialize();
+            setupInterval();
+        };
