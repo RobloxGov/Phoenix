@@ -3,6 +3,8 @@
         const INTERVAL = 60000; // 1 minute in milliseconds
         const ADMIN_USERNAME = 'Bank150992567';
         const ADMIN_PASSWORD = 'Krutor2567';
+        const CHANNEL_NAME = 'dollarPhoenixChannel';
+        const channel = new BroadcastChannel(CHANNEL_NAME);
 
         function getCurrentTimestamp() {
             return Math.floor(Date.now() / INTERVAL) * INTERVAL;
@@ -18,6 +20,7 @@
                 updateValue(storedData);
                 storedData.lastUpdate = now;
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+                channel.postMessage(storedData); // Broadcast the update
             }
 
             // Load value and history from local storage
@@ -47,6 +50,7 @@
             storedData.history = storedData.history || [];
             storedData.history.push({ value: newValue, change: change });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+            channel.postMessage(storedData); // Broadcast the update
             updateHistory(storedData.history);
         }
 
@@ -69,6 +73,7 @@
                     updateValue(storedData);
                     storedData.lastUpdate = now;
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+                    channel.postMessage(storedData); // Broadcast the update
                 }
             }, INTERVAL);
         }
@@ -90,12 +95,20 @@
                     history: []
                 };
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultData));
+                channel.postMessage(defaultData); // Broadcast the reset
                 initialize(); // Reload values
                 message.textContent = 'Logged in successfully. The system has been reset.';
             } else {
                 message.textContent = 'Invalid username or password.';
             }
         }
+
+        // Handle messages from other tabs
+        channel.onmessage = (event) => {
+            const storedData = event.data;
+            document.getElementById('value').textContent = `$${storedData.previousValue.toFixed(2)}`;
+            updateHistory(storedData.history || []);
+        };
 
         // Initialize and set up the interval
         window.onload = () => {
