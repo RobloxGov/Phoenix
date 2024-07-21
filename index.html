@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLIxrdZPxT5sgV5180XjfLUG3-xNMGZeJ-zg&s) 50% 0 no-repeat fixed;
+            background: #333;
             background-size: cover;
             color: #ff5c00;
         }
@@ -19,7 +19,6 @@
             right: 0;
             padding: 10px;
         }
-        
         button#login-btn {
             position: absolute;
             right: 20px;
@@ -93,6 +92,7 @@
             font-size: 1.5em;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header">
@@ -109,6 +109,7 @@
     <h1>Dollar Phoenix Tracker</h1>
     <div class="value" id="value">$100.00</div>
     <div class="change" id="change"></div>
+    <canvas id="valueChart" width="400" height="200"></canvas>
     <div class="history" id="history">
         <table>
             <thead>
@@ -122,6 +123,6 @@
             </tbody>
         </table>
     </div>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
