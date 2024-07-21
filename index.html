@@ -9,31 +9,6 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background: #333;
-            background-size: cover;
-            color: #ff5c00;
-        }
-        canvas{
-            display: none;
-        }
-        .header {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 10px;
-        }
-        button#login-btn {
-            position: absolute;
-            right: 20px;
-            border: 0;
-            background: #ff0000;
-            color: #fff;
-            border-radius: 2px;
-            padding: 5px;
-            margin: auto;
-            justify-content: center;
-            align-items: center;
-            display: grid;
         }
         .value, .change {
             font-size: 2em;
@@ -64,55 +39,56 @@
         .history th {
             background-color: #f2f2f2;
         }
-        .login-form {
-            display: none;
-            position: fixed;
-            top: 20%;
-            left: 20%;
-            width: 60%;
-            padding: 20px;
-            background: #fff;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .login-form input {
-            display: block;
-            margin: 10px 0;
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-        }
-        .login-form button {
-            padding: 10px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        .close-btn {
-            cursor: pointer;
+        .admin-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5em;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .login-container input {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .login-container button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="header">
-        <button id="login-btn">Login</button>
-    </div>
-    <div class="login-form" id="login-form">
-        <span class="close-btn" id="close-btn">&times;</span>
-        <h2>Admin Login</h2>
+    <h1>Dollar Phoenix Tracker</h1>
+    <button class="admin-btn" onclick="toggleLogin()">Admin Login</button>
+    <div class="login-container" id="login-container">
+        <h3>Admin Login</h3>
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
-        <button id="submit-login">Login</button>
-        <button id="reset-money" style="display:none;">Reset Money</button>
+        <button onclick="login()">Login</button>
+        <div id="login-message" style="color: red; margin-top: 10px;"></div>
     </div>
-    <h1>Dollar Phoenix Tracker</h1>
     <div class="value" id="value">$100.00</div>
     <div class="change" id="change"></div>
-    <canvas id="valueChart" width="400" height="200"></canvas>
     <div class="history" id="history">
         <table>
             <thead>
@@ -126,6 +102,6 @@
             </tbody>
         </table>
     </div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
