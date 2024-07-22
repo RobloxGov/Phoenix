@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeAdminModal = document.getElementById('close-admin-modal');
     const adminLoginForm = document.getElementById('admin-login-form');
     const adminLoginMessage = document.getElementById('admin-login-message');
-    const adminOptions = document.getElementById('admin-options');
-    const resetVotesButton = document.getElementById('reset-votes');
+    const resetVotesModalButton = document.getElementById('reset-votes-modal');
 
     adminLoginButton.addEventListener('click', () => {
         adminModal.style.display = 'block';
@@ -33,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const adminPassword = 'Krutor2567';
 
         if (username === adminUsername && password === adminPassword) {
-            adminOptions.classList.remove('hidden');
+            resetVotesModalButton.classList.remove('hidden');
             adminModal.style.display = 'none';
         } else {
             adminLoginMessage.textContent = 'Invalid admin credentials';
         }
     }
 
-    resetVotesButton.addEventListener('click', () => {
+    resetVotesModalButton.addEventListener('click', () => {
         resetVotes();
     });
 
