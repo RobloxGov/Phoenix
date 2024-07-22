@@ -39,7 +39,7 @@ button {
     display: block;
     width: 100%;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #00ca0c;
     color: white;
     border: none;
     border-radius: 4px;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #00ba0b;
 }
 
 table {
@@ -132,7 +132,7 @@ th {
 
 .admin-section button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #00ca0c;
     color: white;
     border: none;
     border-radius: 4px;
@@ -140,7 +140,7 @@ th {
 }
 
 .admin-section button:hover {
-    background-color: #0056b3;
+    background-color: #00ca0c;
 }
 
 /* Modal Styles */
