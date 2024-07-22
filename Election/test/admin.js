@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
+                localStorage.removeItem('hasVoted'); // Remove voting status
                 loadVotes(); // Reload votes
             } else {
                 throw new Error('Failed to reset votes');
