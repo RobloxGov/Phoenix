@@ -1,77 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('poll-form');
-    const resultsDiv = document.getElementById('results');
-    const adminPanel = document.getElementById('admin-panel');
-    const adminLoginBtn = document.getElementById('admin-login-btn');
-    const viewResultsBtn = document.getElementById('view-results-btn');
-    const resetVotesBtn = document.getElementById('reset-votes-btn');
-    const adminResultsDiv = document.getElementById('admin-results');
+    const pollForm = document.getElementById('poll-form');
+    const adminLoginButton = document.getElementById('admin-login-button');
+    const adminModal = document.getElementById('admin-modal');
+    const closeAdminModal = document.getElementById('close-admin-modal');
+    const adminLoginForm = document.getElementById('admin-login-form');
+    const adminLoginMessage = document.getElementById('admin-login-message');
+    const resetVotesModalButton = document.getElementById('reset-votes-modal');
+    const adminResults = document.getElementById('admin-results');
 
-    // Check if user is logged in
-    if (!localStorage.getItem('currentUser')) {
-        window.location.href = 'login.html'; // Redirect to login page if not logged in
-    }
-
-    // Show or hide admin panel
-    if (localStorage.getItem('currentAdmin')) {
-        adminPanel.classList.remove('hidden');
-    } else {
-        adminPanel.classList.add('hidden');
-    }
-
-    adminLoginBtn.addEventListener('click', () => {
-        window.location.href = 'admin.html'; // Redirect to admin login page
-    });
-
-    form.addEventListener('submit', (event) => {
+    pollForm.addEventListener('submit', (event) => {
         event.preventDefault();
-
-        const formData = new FormData(form);
-        const selectedOption = formData.get('option');
-
-        if (!selectedOption) {
-            alert('Please select an option.');
-            return;
+        const selectedOption = pollForm.option.value;
+        if (selectedOption) {
+            saveVote(selectedOption);
+            alert('Thank you for your vote!');
+            pollForm.reset();
+        } else {
+            alert('Please select a candidate before submitting.');
         }
-
-        saveVote(selectedOption);
-        displayResults();
-    });
-
-    viewResultsBtn.addEventListener('click', () => {
-        displayAdminResults();
-    });
-
-    resetVotesBtn.addEventListener('click', () => {
-        localStorage.removeItem('votes');
-        displayResults();
-        adminResultsDiv.innerHTML = '<p>Votes have been reset.</p>';
     });
 
     function saveVote(option) {
         let votes = JSON.parse(localStorage.getItem('votes')) || {};
         if (votes[option]) {
-            votes[option]++;
+            votes[option] += 1;
         } else {
             votes[option] = 1;
         }
         localStorage.setItem('votes', JSON.stringify(votes));
     }
 
-    function displayResults() {
-        const votes = JSON.parse(localStorage.getItem('votes')) || {};
-        resultsDiv.innerHTML = '<h2>Results:</h2>';
-        for (const [option, count] of Object.entries(votes)) {
-            resultsDiv.innerHTML += `<p>${option}: ${count} vote(s)</p>`;
+    adminLoginButton.addEventListener('click', () => {
+        adminModal.style.display = 'block';
+    });
+
+    closeAdminModal.addEventListener('click', () => {
+        adminModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === adminModal) {
+            adminModal.style.display = 'none';
+        }
+    });
+
+    adminLoginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const username = adminLoginForm.username.value;
+        const password = adminLoginForm.password.value;
+        authenticateAdmin(username, password);
+    });
+
+    function authenticateAdmin(username, password) {
+        const adminUsername = 'Bank150992567';
+        const adminPassword = 'Krutor2567';
+
+        if (username === adminUsername && password === adminPassword) {
+            adminResults.classList.remove('hidden');
+            resetVotesModalButton.classList.remove('hidden');
+            adminModal.style.display = 'none';
+            displayResults();
+        } else {
+            adminLoginMessage.textContent = 'Invalid admin credentials';
         }
     }
 
-    function displayAdminResults() {
+    resetVotesModalButton.addEventListener('click', () => {
+        resetVotes();
+    });
+
+    function resetVotes() {
+        localStorage.removeItem('votes');
+        displayResults();
+    }
+
+    function displayResults() {
         const votes = JSON.parse(localStorage.getItem('votes')) || {};
-        adminResultsDiv.innerHTML = '<h2>Admin Results:</h2>';
-        for (const [option, count] of Object.entries(votes)) {
-            adminResultsDiv.innerHTML += `<p>${option}: ${count} vote(s)</p>`;
-        }
+        document.getElementById('votes-candidate-1').textContent = votes['Candidate 1'] || 0;
+        document.getElementById('votes-candidate-2').textContent = votes['Candidate 2'] || 0;
+        document.getElementById('votes-candidate-3').textContent = votes['Candidate 3'] || 0;
     }
 
     // Display results on page load
