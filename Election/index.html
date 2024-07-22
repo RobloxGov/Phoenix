@@ -8,25 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Election Poll</h1>
-
-        <!-- Admin login section -->
-        <div id="admin-login">
+        <div class="admin-login">
             <button id="admin-login-btn">Admin Login</button>
-            <div id="admin-panel" style="display: none;">
-                <form id="admin-login-form">
-                    <label for="admin-username">Admin Username:</label>
-                    <input type="text" id="admin-username" name="admin-username" required>
-                    <label for="admin-password">Admin Password:</label>
-                    <input type="password" id="admin-password" name="admin-password" required>
-                    <button type="submit">Login</button>
-                </form>
-                <button id="reset-votes" style="display: none;">Reset Votes</button>
-                <div id="admin-results" style="display: none;"></div>
-            </div>
         </div>
-
-        <!-- Poll form -->
+        <h1>Election Poll</h1>
         <form id="poll-form">
             <table>
                 <tr>
@@ -57,6 +42,12 @@
             <button type="submit">Submit</button>
         </form>
         <div id="results"></div>
+    </div>
+    <div id="admin-panel" class="hidden">
+        <h2>Admin Panel</h2>
+        <button id="view-results-btn">View Results</button>
+        <button id="reset-votes-btn">Reset Votes</button>
+        <div id="admin-results"></div>
     </div>
     <script src="elec.js"></script>
     <script src="admin.js"></script>
