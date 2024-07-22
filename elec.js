@@ -1,11 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('poll-form');
+    const loginContainer = document.getElementById('login-container');
+    const pollContainer = document.getElementById('poll-container');
+    const loginForm = document.getElementById('login-form');
+    const pollForm = document.getElementById('poll-form');
     const resultsDiv = document.getElementById('results');
 
-    form.addEventListener('submit', (event) => {
+    const validUsername = 'user';
+    const validPassword = 'password';
+
+    loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const formData = new FormData(form);
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === validUsername && password === validPassword) {
+            loginContainer.style.display = 'none';
+            pollContainer.style.display = 'block';
+        } else {
+            alert('Invalid username or password');
+        }
+    });
+
+    pollForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(pollForm);
         const selectedOption = formData.get('option');
 
         if (!selectedOption) {
