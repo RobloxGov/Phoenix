@@ -8,10 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="admin-login">
-            <button id="admin-login-btn">Admin Login</button>
-        </div>
         <h1>Election Poll</h1>
+
+        <!-- Admin Login Section -->
+        <div class="admin-section">
+            <button id="admin-login-button">Admin Login</button>
+        </div>
+
+        <!-- Poll Form -->
         <form id="poll-form">
             <table>
                 <tr>
@@ -41,14 +45,33 @@
             </table>
             <button type="submit">Submit</button>
         </form>
+
+        <!-- Results Section -->
         <div id="results"></div>
     </div>
-    <div id="admin-panel" class="hidden">
-        <h2>Admin Panel</h2>
-        <button id="view-results-btn">View Results</button>
-        <button id="reset-votes-btn">Reset Votes</button>
-        <div id="admin-results"></div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-admin-modal" class="close">&times;</span>
+            <h2>Admin Login</h2>
+            <form id="admin-login-form">
+                <label for="admin-username">Username:</label>
+                <input type="text" id="admin-username" name="username" required>
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" name="password" required>
+                <button type="submit">Login</button>
+                <div id="admin-login-message"></div>
+            </form>
+        </div>
     </div>
+
+    <!-- Admin Options -->
+    <div id="admin-options" class="admin-options hidden">
+        <button id="view-results">View Results</button>
+        <button id="reset-votes">Reset Votes</button>
+    </div>
+
     <script src="elec.js"></script>
     <script src="admin.js"></script>
 </body>
