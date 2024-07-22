@@ -1,41 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const adminLoginButton = document.getElementById('admin-login-button');
-    const adminLoginForm = document.getElementById('admin-login');
-    const adminLogin = document.getElementById('admin-login-form');
-    const adminMessage = document.getElementById('admin-message');
-    const resetVotesButton = document.getElementById('reset-votes');
+    const loginForm = document.getElementById('admin-login-form');
+    const loginMessage = document.getElementById('admin-login-message');
 
-    adminLoginButton.addEventListener('click', () => {
-        adminLogin.classList.toggle('hidden');
-    });
-
-    adminLogin.addEventListener('submit', (event) => {
+    loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        const username = adminLogin.username.value;
-        const password = adminLogin.password.value;
+        const username = loginForm.username.value;
+        const password = loginForm.password.value;
         authenticateAdmin(username, password);
     });
 
-    resetVotesButton.addEventListener('click', () => {
-        resetVotes();
-    });
-
     function authenticateAdmin(username, password) {
-        fetch('admin.json')
+        fetch('users.json')
             .then(response => response.json())
-            .then(admins => {
-                const admin = admins.find(admin => admin.username === username && admin.password === password);
+            .then(users => {
+                const admin = users.find(user => user.username === username && user.password === password && user.role === 'admin');
                 if (admin) {
-                    adminMessage.textContent = 'Login successful';
-                    resetVotesButton.classList.remove('hidden');
+                    localStorage.setItem('currentAdmin', JSON.stringify(admin));
+                    window.location.href = 'index.html'; // Redirect to poll page
                 } else {
-                    adminMessage.textContent = 'Invalid username or password';
+                    loginMessage.textContent = 'Invalid username or password';
                 }
             });
-    }
-
-    function resetVotes() {
-        localStorage.removeItem('votes');
-        displayResults();
     }
 });
