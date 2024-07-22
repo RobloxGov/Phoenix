@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminLoginForm = document.getElementById('admin-login-form');
     const adminLoginMessage = document.getElementById('admin-login-message');
     const resetVotesModalButton = document.getElementById('reset-votes-modal');
+    const adminResults = document.getElementById('admin-results');
 
     adminLoginButton.addEventListener('click', () => {
         adminModal.style.display = 'block';
@@ -32,8 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const adminPassword = 'Krutor2567';
 
         if (username === adminUsername && password === adminPassword) {
+            adminResults.classList.remove('hidden');
             resetVotesModalButton.classList.remove('hidden');
             adminModal.style.display = 'none';
+            displayResults();
         } else {
             adminLoginMessage.textContent = 'Invalid admin credentials';
         }
@@ -50,13 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayResults() {
         const votes = JSON.parse(localStorage.getItem('votes')) || {};
-        const resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '<h2>Results:</h2>';
-        for (const [option, count] of Object.entries(votes)) {
-            resultsDiv.innerHTML += `<p>${option}: ${count} vote(s)</p>`;
-        }
+        document.getElementById('votes-candidate-1').textContent = votes['Candidate 1'] || 0;
+        document.getElementById('votes-candidate-2').textContent = votes['Candidate 2'] || 0;
+        document.getElementById('votes-candidate-3').textContent = votes['Candidate 3'] || 0;
     }
-
-    // Display results on page load
-    displayResults();
 });
