@@ -245,3 +245,18 @@ th {
 .admin-options.hidden {
     display: none;
 }
+/* Add this to your elec.css */
+
+.reset-votes-modal {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reset-votes-modal:hover {
+    background-color: #c82333;
+}
