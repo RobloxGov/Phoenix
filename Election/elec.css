@@ -79,9 +79,9 @@ th {
 
 #admin-login-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #007bff;
+    top: 0;
+    right: 0;
+    background-color: #00ca0c;
     color: white;
     border: none;
     padding: 10px 20px;
