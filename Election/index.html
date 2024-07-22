@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Poll</title>
+    <link rel="stylesheet" href="elec.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Election Poll</h1>
+        <form id="poll-form">
+            <table>
+                <tr>
+                    <th>Vote</th>
+                    <th>Candidate Number</th>
+                    <th>Candidate Name</th>
+                    <th>Party Logo</th>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="option" value="Candidate 1"></td>
+                    <td>1</td>
+                    <td>Candidate 1</td>
+                    <td><img src="party1.png" alt="Party 1" class="party-logo"></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="option" value="Candidate 2"></td>
+                    <td>2</td>
+                    <td>Candidate 2</td>
+                    <td><img src="party2.png" alt="Party 2" class="party-logo"></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="option" value="Candidate 3"></td>
+                    <td>3</td>
+                    <td>Candidate 3</td>
+                    <td><img src="party3.png" alt="Party 3" class="party-logo"></td>
+                </tr>
+            </table>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="results"></div>
+    </div>
+    <script src="elec.js"></script>
+</body>
+</html>
