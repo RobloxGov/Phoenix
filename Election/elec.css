@@ -280,3 +280,41 @@ th {
 .admin-results th {
     background-color: #f2f2f2;
 }
+/* Add this to your elec.css */
+
+.admin-results {
+    margin-top: 20px;
+}
+
+.admin-results table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-results th, .admin-results td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.admin-results th {
+    background-color: #f2f2f2;
+}
+
+.reset-votes-modal {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reset-votes-modal:hover {
+    background-color: #c82333;
+}
+
+.hidden {
+    display: none;
+}
