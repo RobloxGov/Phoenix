@@ -260,3 +260,23 @@ th {
 .reset-votes-modal:hover {
     background-color: #c82333;
 }
+/* Add this to your elec.css */
+
+.admin-results {
+    margin-top: 20px;
+}
+
+.admin-results table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-results th, .admin-results td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.admin-results th {
+    background-color: #f2f2f2;
+}
