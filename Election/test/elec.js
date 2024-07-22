@@ -3,11 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const message = document.getElementById('message');
     const loginBtn = document.getElementById('login-btn');
 
-    let hasVoted = false;
+    let hasVoted = localStorage.getItem('hasVoted') === 'true';
 
     // Check if the user has already voted
-    if (localStorage.getItem('hasVoted') === 'true') {
-        hasVoted = true;
+    if (hasVoted) {
         form.style.display = 'none';
         message.textContent = 'คุณได้ลงคะแนนแล้ว';
     }
