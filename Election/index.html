@@ -63,6 +63,28 @@
                 <button type="submit">Login</button>
                 <div id="admin-login-message"></div>
             </form>
+            <!-- Results Display in Modal -->
+            <div id="admin-results" class="admin-results hidden">
+                <h3>Current Vote Counts</h3>
+                <table>
+                    <tr>
+                        <th>Candidate Number</th>
+                        <th>Votes</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td id="votes-candidate-1">0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td id="votes-candidate-2">0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id="votes-candidate-3">0</td>
+                    </tr>
+                </table>
+            </div>
             <!-- Reset Votes Button in Modal -->
             <button id="reset-votes-modal" class="reset-votes-modal hidden">Reset Votes</button>
         </div>
