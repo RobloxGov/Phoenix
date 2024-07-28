@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dollar Phoenix Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .value, .change {
+            font-size: 2em;
+            margin: 20px;
+        }
+        .change.up {
+            color: green;
+        }
+        .change.down {
+            color: red;
+        }
+        .icon {
+            font-size: 1em;
+        }
+        .history {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .history table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .history th, .history td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .history th {
+            background-color: #f2f2f2;
+        }
+        .admin-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .login-container input {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .login-container button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dollar Phoenix Tracker</h1>
+    <button class="admin-btn" onclick="toggleLogin()">Admin Login</button>
+    <div class="login-container" id="login-container">
+        <h3>Admin Login</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <div id="login-message" style="color: red; margin-top: 10px;"></div>
+    </div>
+    <div class="value" id="value">$100.00</div>
+    <div class="change" id="change"></div>
+    <div class="history" id="history">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Value</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody id="history-body">
+            </tbody>
+        </table>
+    </div>
+    <script></script>
+</body>
+</html>
+
+    <script src="script.js"></script>
