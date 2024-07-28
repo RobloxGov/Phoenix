@@ -28,15 +28,23 @@
 
     <div style="background: linear-gradient(256deg, #6fe49d, #000091);padding-bottom: 1.5rem !important; padding-top: 1.5rem !important;">
         <div>
-            <div style="max-width: calc(4 / 12* 100%);">
+            <div class="col" style="max-width: calc(4 / 12 * 100%);">
                 <div style="padding-top: 6rem !important; text-align: center !important; color: white !important;">
                     <div>
-                    <h2 data-lfr-editable-id="element-text" data-lfr-editable-type="text" style="margin-bottom: 0 !important;font-weight: 700; line-height: 1.2;">Welcome to France</h2>
+                        <h2 data-lfr-editable-id="element-text" data-lfr-editable-type="text" style="margin-bottom: 0 !important;font-weight: 700; line-height: 1.2;">Welcome to France</h2>
                     </div>
                 </div>
             </div>
             <div class="col col-lg-1 col-sm-12 col-12 col-md-1"></div>
         </div>
+        <style>
+            @media (max-width: 600px) {
+                .col {
+                    max-width: 100%;
+                }
+            }
+        </style>
+
     </div>
     
     <script src="script.js"></script>
