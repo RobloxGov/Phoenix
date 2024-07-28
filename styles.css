@@ -79,9 +79,6 @@ nav {
 }
 
 @media (max-width: 600px) {
-    body {
-        overflow: hidden; /* ปิดการเลื่อนเมื่อเมนูเปิด */
-    }
 
     .nav-list {
         display: flex;
